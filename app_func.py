@@ -34,7 +34,7 @@ def process_pdf_files(files: list) -> None:
         with open(_f, 'rb') as current_file:
             try: 
                 _data = build_file_string(fileobj=current_file, config=config)
-                logging.debug("Converting file: %", _data['source_file'])
+                logging.debug("Converting file: {}".format(_data['source_file']))
                 convert_to_file(current_file, output=_data['output'], output_format=config['format'], pages='all')
                 logging.debug("Done, moving it to processed folder")
                 os.rename(_data['source_file'], _data['processed'])
