@@ -26,7 +26,7 @@ $ conda create --name <env> --file requirements.txt
 I pdf da convertire vengono caricati nella cartella "data". Eseguendo poi (dopo aver attivato l'ambiente)
 ```python
 python3 main.py
-`
+```
 questi vengono processati in file JSON, spostati nella cartella "processed" e resi disponibili per essere analizzati da Panda.
 Per far questo al momento ci sono due metodi:
 
