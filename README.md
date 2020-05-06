@@ -30,31 +30,32 @@ python3 main.py
 questi vengono processati in file JSON, spostati nella cartella "processed" e resi disponibili per essere analizzati da Panda.
 Per far questo al momento ci sono due metodi:
 
-`
+```python
 #df = as_dataframe_list(result)
 #df = as_pure_list(result)
-`
+```
 
 `as_dataframe_list()` restituisce una lista di DataFrame Panda, ad esempio:
 
-`
+```
                                           Tipo   Valore        Data
 0                          PERSONE CONTROLLATE  107.879  2020-03-11
 1          PERSONE DENUNCIATE EX ART. 650 C.P.    2.165  2020-03-11
 2    PERSONE DENUNCIATE EX ART. 495 E 496 C.P.       35  2020-03-11
 3             ESERCIZI COMMERCIALI CONTROLLATI   19.985  2020-03-11
 4  TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX      119  2020-03-11
-`
+```
 Mentre `as_pure_list()` restituisce una semplice lista con i dati "grezzi":
-`
+
+```python
 {'Tipo': ['PERSONE CONTROLLATE', 'PERSONE DENUNCIATE EX ART. 650 C.P.', 'PERSONE DENUNCIATE EX ART. 495 E 496 C.P.', 'ESERCIZI COMMERCIALI CONTROLLATI', 'TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX'], 'Valore': ['107.879', '2.165', '35', '19.985', '119'], 'Data': ['2020-03-11', '2020-03-11', '2020-03-11', '2020-03-11', '2020-03-11']}
-`
+```
 
 E' possibile avere il dato grezzo anche come lista di dizionari "tipo" => "valore" passando `return_list = True` alla funzione `process_output_files(files, return_list)`:
 
-`
+```python
 [{'Tipo': 'PERSONE CONTROLLATE', 'Valore': '107.879', 'Data': '2020-03-11'}, {'Tipo': 'PERSONE DENUNCIATE EX ART. 650 C.P.', 'Valore': '2.165', 'Data': '2020-03-11'}, {'Tipo': 'PERSONE DENUNCIATE EX ART. 495 E 496 C.P.', 'Valore': '35', 'Data': '2020-03-11'}, {'Tipo': 'ESERCIZI COMMERCIALI CONTROLLATI', 'Valore': '19.985', 'Data': '2020-03-11'}, {'Tipo': 'TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX', 'Valore': '119', 'Data': '2020-03-11'}]
-`
+```
 
 ## Contatti
 
