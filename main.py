@@ -13,25 +13,23 @@ if __name__ == '__main__':
     logging.basicConfig(filename=config['log_name'], level=logging.DEBUG,
                        format=config['log_format'], datefmt = config['log_date_format'])
 
-    logging.info(print_log_header('start'))
-    logging.debug("Start processing source files")
+    logging.info("Inizio elaborazione file sorgente")
 
     files = glob.glob(os.path.join(config['source_dir'], config['source_glob']))
     if len(files) > 0 :
         process_pdf_files(files)
     else:
-        logging.warning("No files found!")
+        logging.warning("Nessun file presente!")
  
-    logging.debug("Start processing exported files")
+    logging.info("Inizio elaborazione file esportati")
     exported = glob.glob(os.path.join(os.getcwd(), config['output_dir'], "*.{}".format(config['format'])))
     if len(exported) > 0:
         result = process_ouput_files(exported)
     else:
-        logging.warning("No exported files!")
+        logging.warning("Nessun file esportato!")
 
-    logging.info("Files processed")
+    logging.info("File processati")
 
-#df = get_as_list(result)
-#df = get_as_date_dict(result)
-#df = get_as_one(result)
-#df = get_pure_list(result)
+    #df = as_dataframe_list(result)
+    #df = as_pure_list(result)
+    

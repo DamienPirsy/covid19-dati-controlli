@@ -41,7 +41,7 @@ def process_pdf_files(files: list) -> None:
             except Exception as e:
                 logging.error(e)
 
-def parse_content(json_content: str, date: str, w_check: re.Pattern) -> list:
+def parse_content(json_content: str, date: str, w_check: re.Pattern, return_list=False) -> list:
     """ Elabora il contenuto del PDF
 
         La struttura tabellare viene recuperata senza grossi problemi.
@@ -81,13 +81,17 @@ def parse_content(json_content: str, date: str, w_check: re.Pattern) -> list:
         data da utilizzare per i record
     w_check: re.Pattern
         regex per l'elaborazione dei dati
+    return_list: boolean
+        se True restitusce una lista di dizionari [{'Tipo': '', 'Valore': ''}]
+        altrimenti restituisce un dizionario di liste {'Tipo': [......], 'Valore': [.....]}
 
     Returns:
     list 
       lista di dizionari, ognuno è un record
     
     """
-    _tmp_doc = []
+    as_dict = {'Tipo' : [], 'Valore' : [], 'Data': []}
+    as_list = []
     for _row in json_content:
         _tmp_row = []
         for _internal_row in _row['data']:
@@ -97,14 +101,22 @@ def parse_content(json_content: str, date: str, w_check: re.Pattern) -> list:
         doc = {}  # contenitore per la "riga di valori"
         for _r in _tmp_row:  #ora analizzo ogni tupla per capire quali elementi  prendere            
             if w_check.search(_r[0]):
-                doc['Label'] = _r[0]
+                doc['Tipo'] = _r[0]
             if is_not_blank(_r[1]):
-                doc['Value'] = _r[1]
-            if 'Label' in doc and 'Value' in doc:  # se la riga di valori è "piena" reinizializzo
-                doc['Date'] = date
-                _tmp_doc.append(doc)
+                doc['Valore'] = _r[1]
+            if 'Tipo' in doc and 'Valore' in doc:  # se la riga di valori è "piena" reinizializzo
+                doc['Data'] = date
+                if return_list:
+                    as_list.append(doc)
+                else:
+                    as_dict['Tipo'].append(doc['Tipo'])
+                    as_dict['Valore'].append(doc['Valore'])
+                    as_dict['Data'].append(doc['Data'])
                 doc = {}
-    return _tmp_doc
+    if return_list:
+        return as_list
+    else:
+        return as_dict
 
 def process_ouput_files(files: list) -> Generator[list, None, None]:
     """ Processa i file per Panda
@@ -130,21 +142,10 @@ def process_ouput_files(files: list) -> Generator[list, None, None]:
             except Exception as e:
                 logging.error(e) 
 
-def get_as_list(iterable: Generator, **kwargs) -> list:
+def as_dataframe_list(iterable: Generator, **kwargs) -> list:
     """ Restituisce come lista di dataframes panda """
     return list(pd.DataFrame(x, **kwargs) for x in iterable)
 
-def get_as_date_dict(iterable: Generator, **kwargs) -> dict:
-    """ Restituisce come mappa data => dataframe panda """
-    _t = {}
-    for el in iterable:
-        _t[el[0]['Date']] = pd.DataFrame(el, **kwargs)
-    return _t
-
-def get_as_one(iterable: Generator, **kwargs):
-    """ Restituisce un'unico dataframe panda"""
-    return pd.concat(get_as_list(iterable, **kwargs))
-
-def get_pure_list(iterable: Generator) -> list:
+def as_pure_list(iterable: Generator) -> list:
     """ Restituisce una lista di dati non processati da panda """
     return list(iterable)
