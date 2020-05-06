@@ -1,7 +1,7 @@
 # Project name
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/DamienPirsy/covid19-dati-controlli.md)
+![GitHub repo size](https://img.shields.io/github/repo-size/DamienPirsy/covid19-dati-controlli)
 ![GitHub stars](https://img.shields.io/github/stars/DamienPirsy/README-template.md?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DamienPirsy/README-template.md?style=social)
 
