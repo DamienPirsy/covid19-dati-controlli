@@ -1,67 +1,75 @@
-# Project name
+# Covid19 Dati Controlli
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 ![GitHub repo size](https://img.shields.io/github/repo-size/DamienPirsy/covid19-dati-controlli)
 ![GitHub stars](https://img.shields.io/github/stars/DamienPirsy/covid19-dati-controlli?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DamienPirsy/covid19-dati-controlli?style=social)
+![](https://img.shields.io/github/last-commit/DamienPirsy/covid19-dati-controlli)
 
-Project name is a `<utility/tool/feature>` that allows `<insert_target_audience>` to do `<action/task_it_does>`.
+Covid19-Dati-controlli è un semplice repository che contiene i dati relativi ai controlli effettuati in Italia dall'inizio della quarantena al giorno corrente, così come pubblicati giornalmente sul sito del Viminale.
 
-Additional line of information text about what the project does. Your introduction should be around 2 or 3 sentences. Don't go overboard, people won't read it.
+Il repository contiene i file pdf originali, i file convertiti in JSON, ed il programma in python usato per estrarre i dati.
 
-## Prerequisites
+Avevo semplicemente bisogno di un pretesto per iniziare ad usare concretamente Python 3 e per provare Panda, quale miglior modo se non usare dati concreti, open, e riutilizzabili da chiunque?
 
-Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have a `<Windows/Linux/Mac>` machine. State which OS is supported/which is not.
-* You have read `<guide/link/documentation_related_to_project>`.
+## Contribuire
 
-## Installing <project_name>
+Il progetto pertanto è ancora **in sviluppo**, sono alla ricerca di qualcuno skillato in Panda / Matplotlib che mi aiuti ad estrapolare dati da questa raccolta, proponendo ad esempio alcune metodologie di analisi e/o rappresentazione grafica dei dati :pray:
 
-To install <project_name>, follow these steps:
+## Prerequisiti
 
-Linux and macOS:
-```
-<install_command>
-```
-
-Windows:
-```
-<install_command>
-```
-## Using <project_name>
-
-To use <project_name>, follow these steps:
+Per usare lo script in python è necessario creare un ambiente in Anaconda / Miniconda con i pacchetti elencati nel file requirements.txt:
 
 ```
-<usage_example>
+$ conda create --name <env> --file requirements.txt
 ```
 
-Add run commands and examples you think users will find useful. Provide an options reference for bonus points!
+## Utilizzo
 
-## Contributing to <project_name>
-<!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to <project_name>, follow these steps:
+I pdf da convertire devono essere salvati nella cartella "data". 
+Eseguendo poi (dopo aver attivato l'ambiente)
 
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
+```python
+python3 main.py
+```
+questi vengono processati in file JSON (gli originali sono poi spostati nella cartella "processed") e resi disponibili per essere analizzati da Panda.
 
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+Per far questo al momento ci sono due metodi:
 
-## Contributors
+```python
+#df = as_dataframe_list(result)
+#df = as_pure_list(result)
+```
 
+`as_dataframe_list()` restituisce una lista di DataFrame Panda dove ogni elemento è il contentuo di un file, ad esempio:
 
-You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
+```
+                                          Tipo   Valore        Data
+0                          PERSONE CONTROLLATE  107.879  2020-03-11
+1          PERSONE DENUNCIATE EX ART. 650 C.P.    2.165  2020-03-11
+2    PERSONE DENUNCIATE EX ART. 495 E 496 C.P.       35  2020-03-11
+3             ESERCIZI COMMERCIALI CONTROLLATI   19.985  2020-03-11
+4  TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX      119  2020-03-11
+```
 
-## Contact
+Mentre `as_pure_list()` restituisce la semplice lista con i dati "grezzi", come elaborati dal parser:
 
-If you want to contact me you can reach me at <damien.pirsy@gmail.com>.
+```python
+{'Tipo': ['PERSONE CONTROLLATE', 'PERSONE DENUNCIATE EX ART. 650 C.P.', 'PERSONE DENUNCIATE EX ART. 495 E 496 C.P.', 'ESERCIZI COMMERCIALI CONTROLLATI', 'TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX'], 
+'Valore': ['107.879', '2.165', '35', '19.985', '119'], 
+'Data': ['2020-03-11', '2020-03-11', '2020-03-11', '2020-03-11', '2020-03-11']}
+```
 
-## License
-<!--- If you're not sure which open license to use see https://choosealicense.com/--->
+E' possibile avere il dato grezzo anche come lista di dizionari nel formato "tipo" => "valore" passando `return_list = True` alla funzione `process_output_files(files, return_list)`:
 
-This project uses the following license: [<license_name>](<link>).
+```python
+[{'Tipo': 'PERSONE CONTROLLATE', 'Valore': '107.879', 'Data': '2020-03-11'}, 
+{'Tipo': 'PERSONE DENUNCIATE EX ART. 650 C.P.', 'Valore': '2.165', 'Data': '2020-03-11'}, 
+{'Tipo': 'PERSONE DENUNCIATE EX ART. 495 E 496 C.P.', 'Valore': '35', 'Data': '2020-03-11'}, 
+{'Tipo': 'ESERCIZI COMMERCIALI CONTROLLATI', 'Valore': '19.985', 'Data': '2020-03-11'}, 
+{'Tipo': 'TITOLARI ESERCIZI COMMERCIALI DENUNCIATI EX', 'Valore': '119', 'Data': '2020-03-11'}]
+```
+
+## Contatti
+
+Per qualsiasi cosa mi trovate scrivendo a <damien.pirsy@gmail.com>
