@@ -6,19 +6,25 @@
 ![GitHub forks](https://img.shields.io/github/forks/DamienPirsy/covid19-dati-controlli?style=social)
 ![](https://img.shields.io/github/last-commit/DamienPirsy/covid19-dati-controlli)
 
-Covid19-Dati-controlli è un semplice repository che contiene i dati relativi ai controlli effettuati in Italia dall'inizio della quarantena al giorno corrente, così come pubblicati giornalmente sul sito del Viminale.
+Covid19-Dati-controlli è un semplice repository che contiene i dati relativi ai controlli effettuati in Italia dall'inizio della quarantena al giorno corrente, così come pubblicati giornalmente sul sito del Viminale :point_right: [(https://www.interno.gov.it/it/coronavirus-i-dati-dei-servizi-controllo](https://www.interno.gov.it/it/coronavirus-i-dati-dei-servizi-controllo)
 
-Il repository contiene i file pdf originali, i file convertiti in JSON, ed il programma in python usato per estrarre i dati.
+Il repository contiene i file pdf originali (1), i file convertiti in JSON (2), ed il programma in python usato per estrarre i dati.
 
 Avevo semplicemente bisogno di un pretesto per iniziare ad usare concretamente Python 3 e per provare Panda, quale miglior modo se non usare dati concreti, open, e riutilizzabili da chiunque?
 
+(1) Ho solo uniformato la nomenclatura, specialmente per quanto riguarda la data.
+(2) L'estrazione dei dati dal pdf è stata fatta con `tabula`, il JSON contiente anche informazioni relative al posizionamento degli elementi all'interno della pagina (x, y, w e h)
+
+
 ## Contribuire
 
-Il progetto pertanto è ancora **in sviluppo**, sono alla ricerca di qualcuno skillato in Panda / Matplotlib che mi aiuti ad estrapolare dati da questa raccolta, proponendo ad esempio alcune metodologie di analisi e/o rappresentazione grafica dei dati :pray:
+Il progetto è una bozza e quindi ancora **in sviluppo**, se qualcuno skillato in Panda / Matplotlib mi volesse aiutare ad estrapolare dati da questa raccolta, proponendo ad esempio alcune metodologie di analisi e/o rappresentazione grafica dei dati, gliene sarei grato :pray:
 
 ## Prerequisiti
 
-Per usare lo script in python è necessario creare un ambiente in Anaconda / Miniconda con i pacchetti elencati nel file requirements.txt:
+Versione Python: 3.7+
+
+Per usare lo script è necessario creare un ambiente in Anaconda/Miniconda con i pacchetti elencati nel file requirements.txt:
 
 ```
 $ conda create --name <env> --file requirements.txt
@@ -27,10 +33,11 @@ $ conda create --name <env> --file requirements.txt
 ## Utilizzo
 
 I pdf da convertire devono essere salvati nella cartella "data". 
-Eseguendo poi (dopo aver attivato l'ambiente)
+Attivare poi l'ambiente e richiamare lo script da CLI:
 
 ```python
-python3 main.py
+$ conda activate <env>
+(env) $ python3 main.py
 ```
 questi vengono processati in file JSON (gli originali sono poi spostati nella cartella "processed") e resi disponibili per essere analizzati da Panda.
 
