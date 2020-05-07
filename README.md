@@ -1,4 +1,4 @@
-# Covid19 Dati Controlli
+# Covid19 - Dati sui controlli effettuati giornalmente
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 ![GitHub repo size](https://img.shields.io/github/repo-size/DamienPirsy/covid19-dati-controlli)
@@ -36,8 +36,8 @@ I pdf da convertire devono essere salvati nella cartella "data".
 Attivare poi l'ambiente e richiamare lo script da CLI:
 
 ```python
-$ conda activate <env>
-(env) $ python3 main.py
+conda activate <env>
+(env) python3 main.py
 ```
 questi vengono processati in file JSON (gli originali sono poi spostati nella cartella "processed") e resi disponibili per essere analizzati da Panda.
 
