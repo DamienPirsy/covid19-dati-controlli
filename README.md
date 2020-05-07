@@ -4,6 +4,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/DamienPirsy/covid19-dati-controlli)
 ![GitHub stars](https://img.shields.io/github/stars/DamienPirsy/covid19-dati-controlli?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/DamienPirsy/covid19-dati-controlli?style=social)
+![](https://img.shields.io/github/last-commit/DamienPirsy/covid19-dati-controlli)
 
 Covid19-Dati-controlli è un semplice repository che contiene i dati relativi ai controlli effettuati in Italia dall'inizio della quarantena al giorno corrente, così come pubblicati giornalmente sul sito del Viminale.
 
