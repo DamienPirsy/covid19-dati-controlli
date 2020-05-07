@@ -24,7 +24,7 @@ if __name__ == '__main__':
     logging.info("Inizio elaborazione file esportati")
     exported = glob.glob(os.path.join(os.getcwd(), config['output_dir'], "*.{}".format(config['format'])))
     if len(exported) > 0:
-        result = process_ouput_files(exported)
+        result = process_ouput_files(exported, True)
     else:
         logging.warning("Nessun file esportato!")
 

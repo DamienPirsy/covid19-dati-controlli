@@ -118,7 +118,7 @@ def parse_content(json_content: str, date: str, w_check: re.Pattern, return_list
     else:
         return as_dict
 
-def process_ouput_files(files: list) -> Generator[list, None, None]:
+def process_ouput_files(files: list, return_list: bool =False) -> Generator[list, None, None]:
     """ Processa i file per Panda
 
     Parameters:
@@ -138,7 +138,7 @@ def process_ouput_files(files: list) -> Generator[list, None, None]:
         with open(_f, 'rb') as _current:
             try:
                 _d = format_date(regex_date.search(_current.name)[1])
-                yield parse_content(json.load(_current), _d, regex_words)
+                yield parse_content(json.load(_current), _d, regex_words, return_list)
             except Exception as e:
                 logging.error(e) 
 
