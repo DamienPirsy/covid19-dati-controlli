@@ -37,7 +37,7 @@ Attivare poi l'ambiente e richiamare lo script da CLI:
 
 ```python
 conda activate <env>
-(env) python3 main.py
+(env) python main.py
 ```
 questi vengono processati in file JSON (gli originali sono poi spostati nella cartella "processed") e resi disponibili per essere analizzati da Panda.
 
